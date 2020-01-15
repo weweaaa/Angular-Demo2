@@ -9,7 +9,7 @@
        - mat-label 可以讓輸入視窗有一個外框的感覺 -->
   <p>
     <mat-form-field appearance="outline">
-      <textarea matInput [(ngModel)]="data.name" placeholder="姓名"></textarea>
+      <textarea matInput [(ngModel)]="dialogName" placeholder="姓名"></textarea>
       <mat-hint>*Not Null</mat-hint>
     </mat-form-field>
   </p>
@@ -17,14 +17,14 @@
   <p>
     <mat-form-field appearance="standard">
       <mat-label>您的身高 (cm)</mat-label>
-      <input matInput [(ngModel)]="data.height" placeholder="身高" />
+      <input matInput [(ngModel)]="dialogHeight" placeholder="身高" />
     </mat-form-field>
   </p>
 
   <p>
     <mat-form-field appearance="standard">
       <mat-label>您的體重 (kg)</mat-label>
-      <input matInput [(ngModel)]="data.weight" placeholder="體重" />
+      <input matInput [(ngModel)]="dialogWeight" placeholder="體重" />
     </mat-form-field>
   </p>
 </div>
@@ -32,5 +32,6 @@
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">取消</button>
   <button mat-button (click)="onResetClick()">重置</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>存檔</button>
+  <!-- <button mat-button [mat-dialog-close]="data" cdkFocusInitial>存檔</button> -->
+  <button mat-button (click)="onSaveClick()">存檔</button>
 </div>

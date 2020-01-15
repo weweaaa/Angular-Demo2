@@ -57,37 +57,43 @@ export class AppComponent implements OnInit {
    *
    * @param Event event 點擊事件物件
    */
-  openDialog(event: MouseEvent): void {
+  // openDialog(evnet: MouseEvent): void {  //前端 openDialog($event) 改為 openDialog(data) 直接傳值
+  openDialog(dialogData: IDialogData): void {
 
     // 1.抓取 HTML 事件，必須先做轉型成 HTML 物件，才可對此物件進行操作
     const target = event.target as HTMLButtonElement;
     console.log('抓取到的按鈕名稱 ' + target.innerText);
 
+    // 因為在 Init 時期已經有呼叫 API 取得資料了，所以這裡不用再做重複事情
     // 取得按鈕選取的資料
-    this.getData(target.innerText).subscribe((value: IDialogData[]) => {
-      if (value.length === 1) {
-        this.dialogDate = value[0];
+    // Http request 是非同步行為
+    // this.getData(target.innerText).subscribe((value: IDialogData[]) => {
+    //   if (value.length === 1) {
+    //     this.dialogDate = value[0];
 
-        console.log(`要傳遞到 Dialog 組件內的物件內容
-                     ${this.dialogDate.name}
-                     ${this.dialogDate.height}
-                     ${this.dialogDate.weight}`);
-      }
-    });
+    //     console.log(`要傳遞到 Dialog 組件內的物件內容
+    //                  ${this.dialogDate.name}
+    //                  ${this.dialogDate.height}
+    //                  ${this.dialogDate.weight}`);
+    //   }
+    // });
 
     // 2.開啟 Dialog 組件視窗
     const dialogRef = this.dialog.open(DialogTempComponent, {
       // height: '800px',
       // width: '400px',
-      data: this.dialogDate // 將查找到的 DialogData 物件傳遞到子元件當中
+      data: dialogData // 將查找到的 DialogData 物件傳遞到子元件當中
     });
 
     // 2.Dialog 組件視窗關閉後的操作動作
-    dialogRef.afterClosed().subscribe(result => { // result 是此關閉事件的物件並不是 dialog-temp 組件傳來的內容
-      console.log(`關閉事件後的 DialogData 物件資料內容
-                     ${this.dialogDate.name}
-                     ${this.dialogDate.height}
-                     ${this.dialogDate.weight}`);
+    // result 就是在 dialog.temp.compoent.html 中的 [mat-dialog-close] 所繫結的 "data"
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        console.log(`關閉事件後接收到的的物件資料內容
+        ${result.name}
+        ${result.height}
+        ${result.weight}`);
+      }
     });
   }
 }
