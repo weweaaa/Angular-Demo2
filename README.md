@@ -8,7 +8,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 - Run `json-server -w db.json` for a db json db server. api server Navigate to `http://localhost:3000/`.
 
-## angular-demo2
+## 組件之間溝通以及 dialog 元件使用練習
 
 1. 請製作一個含有編輯功能的 `dialog` 元件
    - 如果找不到 `@angular/material` 模組，您可以嘗試使用以下指令安裝模組套件到專案中
